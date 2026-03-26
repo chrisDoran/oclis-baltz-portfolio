@@ -1,22 +1,35 @@
 import React, { useState, useEffect } from "react";
-import projectsData from "./projects.json";
-import postsData from "./posts.json";
 
 export default function App() {
   const [page, setPage] = useState("work");
+  const [projects, setProjects] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [activeProject, setActiveProject] = useState(null);
   const [activePost, setActivePost] = useState(null);
   const [imageIndex, setImageIndex] = useState(0);
   const [mainImage, setMainImage] = useState({ src: "", caption: "", postIndex: 0 });
 
-  const [projects, setProjects] = useState(projectsData);
-  const [posts, setPosts] = useState(postsData);
-
+  // Fetch JSON files from public folder
   useEffect(() => {
+    fetch("/projects.json")
+      .then((res) => res.json())
+      .then((data) => setProjects(data))
+      .catch((err) => console.error("Error loading projects.json", err));
+
+    fetch("/posts.json")
+      .then((res) => res.json())
+      .then((data) => setPosts(data))
+      .catch((err) => console.error("Error loading posts.json", err));
+  }, []);
+
+  // Set a random main page image from posts
+  useEffect(() => {
+    if (!posts.length) return;
     let imagesWithPosts = [];
     posts.forEach((post, index) => {
       post.content.forEach((block) => {
-        if (block.type === "image") imagesWithPosts.push({ src: block.value, caption: block.caption, postIndex: index });
+        if (block.type === "image")
+          imagesWithPosts.push({ src: block.value, caption: block.caption, postIndex: index });
       });
     });
     if (imagesWithPosts.length) {
@@ -43,7 +56,6 @@ export default function App() {
   return (
     <div className="min-h-screen flex items-center justify-center" style={{ background: "#eae7df", fontFamily: "Courier New, monospace" }}>
       <div style={{ width: "1000px", background: "#fdfbf7", border: "1px solid black", position: "relative" }}>
-
         {/* Header */}
         <div style={{ padding: "24px", borderBottom: "1px dashed black" }}>
           <div style={{ fontSize: "13px", letterSpacing: "2px" }}>OCLIS BALTZ ARCHIVE</div>
@@ -53,8 +65,8 @@ export default function App() {
 
         {/* Nav */}
         <div style={{ padding: "10px 24px", borderBottom: "1px dashed black", fontSize: "12px" }}>
-          <a href="#" onClick={() => setPage("work")}>work</a> {" "}
-          <a href="#" onClick={() => setPage("blog")}>blog</a> {" "}
+          <a href="#" onClick={() => setPage("work")}>work</a>{" "}
+          <a href="#" onClick={() => setPage("blog")}>blog</a>{" "}
           <a href="#" onClick={() => setPage("about")}>about</a>
         </div>
 
@@ -64,9 +76,7 @@ export default function App() {
             {mainImage.src && (
               <div style={{ cursor: "pointer", marginBottom: "20px" }} onClick={() => openPost(mainImage.postIndex)}>
                 <img src={mainImage.src} style={{ width: "100%", border: "1px solid black", transition: "opacity 0.4s" }} />
-                <div style={{ fontSize: "12px", color: "red", textAlign: "right", marginTop: "6px" }}>
-                  {mainImage.caption}
-                </div>
+                <div style={{ fontSize: "12px", color: "red", textAlign: "right", marginTop: "6px" }}>{mainImage.caption}</div>
               </div>
             )}
 
@@ -83,9 +93,7 @@ export default function App() {
         {page === "project" && activeProject && (
           <div style={{ padding: "24px" }}>
             <a href="#" onClick={() => setPage("work")}>← back</a>
-
             <div style={{ marginTop: "10px", marginBottom: "10px" }}>{activeProject.title}</div>
-
             <div>
               <img
                 src={activeProject.images[imageIndex].src}
@@ -96,7 +104,6 @@ export default function App() {
                 {activeProject.images[imageIndex].caption}
               </div>
             </div>
-
             <div style={{ display: "flex", gap: "6px", marginTop: "10px" }}>
               {activeProject.images.map((img, i) => (
                 <img
@@ -128,8 +135,7 @@ export default function App() {
             <a href="#" onClick={() => setPage("blog")}>← back</a>
             <div style={{ marginTop: "10px", fontSize: "11px" }}>{activePost.date}</div>
             <div style={{ marginBottom: "10px" }}>{activePost.title}</div>
-
-            {activePost.content.map((block, i) => (
+            {activePost.content.map((block, i) =>
               block.type === "text" ? (
                 <p key={i} style={{ marginBottom: "12px" }}>{block.value}</p>
               ) : (
@@ -140,7 +146,7 @@ export default function App() {
                   </div>
                 </div>
               )
-            ))}
+            )}
           </div>
         )}
 
