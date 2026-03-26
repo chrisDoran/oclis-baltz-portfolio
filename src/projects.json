@@ -1,0 +1,19 @@
+[
+  {
+    "title": "Interiors",
+    "note": "filed: uncertain spaces",
+    "images": [
+      { "src": "/images/interior1.jpg", "caption": "room 03" },
+      { "src": "/images/interior2.jpg", "caption": "window, late" },
+      { "src": "/images/interior3.jpg", "caption": "hallway" }
+    ]
+  },
+  {
+    "title": "Objects",
+    "note": "catalogued without permission",
+    "images": [
+      { "src": "/images/object1.jpg", "caption": "object a" },
+      { "src": "/images/object2.jpg", "caption": "object b" }
+    ]
+  }
+]

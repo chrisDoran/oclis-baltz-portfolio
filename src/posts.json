@@ -1,0 +1,18 @@
+[
+  {
+    "title": "On photographing empty rooms",
+    "date": "12.02.06",
+    "content": [
+      { "type": "text", "value": "the room remembers more than the people who leave it..." },
+      { "type": "image", "value": "/images/blog-room.jpg", "caption": "morning light" },
+      { "type": "text", "value": "sometimes the light arrives before anything else" }
+    ]
+  },
+  {
+    "title": "Entry without title",
+    "date": "??.??.05",
+    "content": [
+      { "type": "text", "value": "this entry may not belong to the archive" }
+    ]
+  }
+]
