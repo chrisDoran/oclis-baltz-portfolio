@@ -10,26 +10,24 @@ export default function App() {
   const [imageIndex, setImageIndex] = useState(0);
   const [mainImage, setMainImage] = useState({ src: "", caption: "", postIndex: 0 });
 
-  // Load JSON from public folder
+  // Load JSON
   useEffect(() => {
     fetch("/projects.json")
-      .then((res) => res.json())
-      .then((data) => setProjects(data))
-      .catch((err) => console.error("Error loading projects.json", err));
+      .then(res => res.json())
+      .then(data => setProjects(data));
 
     fetch("/posts.json")
-      .then((res) => res.json())
-      .then((data) => setPosts(data))
-      .catch((err) => console.error("Error loading posts.json", err));
+      .then(res => res.json())
+      .then(data => setPosts(data));
   }, []);
 
-  // Random homepage image from blog
+  // Random homepage image
   useEffect(() => {
     if (!posts.length) return;
 
     let images = [];
     posts.forEach((post, index) => {
-      post.content.forEach((block) => {
+      post.content.forEach(block => {
         if (block.type === "image") {
           images.push({
             src: block.value,
@@ -67,10 +65,10 @@ export default function App() {
       {/* Header */}
       <div className="header">
         <img src="/images/logo.png" alt="Logo" className="logo" />
-        <div>
+        <div className="header-text">
           <div>OCLIS BALTZ ARCHIVE</div>
-          <div style={{ fontSize: "12px" }}>documents collected by G. Baltz</div>
-          <div style={{ fontSize: "12px" }}>some records may be incomplete or misplaced</div>
+          <div>documents collected by G. Baltz</div>
+          <div>some records may be incomplete or misplaced</div>
         </div>
       </div>
 
@@ -81,29 +79,20 @@ export default function App() {
         <a onClick={() => setPage("about")}>about</a>
       </div>
 
-      {/* WORK (Homepage) */}
+      {/* WORK */}
       {page === "work" && (
         <div>
-
           {mainImage.src && (
-            <div
-              style={{ cursor: "pointer", marginBottom: "20px" }}
-              onClick={() => openPost(mainImage.postIndex)}
-            >
+            <div className="main-image" onClick={() => openPost(mainImage.postIndex)}>
               <img src={mainImage.src} alt="main" />
-              <div className="project-caption">{mainImage.caption}</div>
+              <div className="caption">{mainImage.caption}</div>
             </div>
           )}
 
           {projects.map((p, i) => (
-            <div key={i} style={{ marginBottom: "20px" }}>
-              <a
-                style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }}
-                onClick={() => openProject(p)}
-              >
-                {p.title}
-              </a>
-              <div style={{ fontSize: "11px" }}>{p.note}</div>
+            <div key={i} className="project-item">
+              <a onClick={() => openProject(p)}>{p.title}</a>
+              <div className="note">{p.note}</div>
             </div>
           ))}
         </div>
@@ -112,75 +101,54 @@ export default function App() {
       {/* PROJECT PAGE */}
       {page === "project" && activeProject && (
         <div>
-          <a className="back-link" onClick={() => setPage("work")}>← back</a>
+          <a className="back" onClick={() => setPage("work")}>← back</a>
 
-          <div style={{ marginTop: "10px", marginBottom: "10px" }}>
-            {activeProject.title}
-          </div>
+          <div className="project-title">{activeProject.title}</div>
 
           <img
             src={activeProject.images[imageIndex].src}
             alt="project"
             onClick={nextImage}
-            style={{ cursor: "pointer" }}
+            className="project-image"
           />
 
-          <div className="project-caption">
+          <div className="caption">
             {activeProject.images[imageIndex].caption}
           </div>
 
-          {/* Dots navigation */}
-          <div className="dots">
-            {activeProject.images.map((_, i) => (
-              <div
-                key={i}
-                className={`dot ${i === imageIndex ? "active" : ""}`}
-                onClick={() => setImageIndex(i)}
-              ></div>
-            ))}
+          <div className="image-counter">
+            #{imageIndex + 1}/{activeProject.images.length}
           </div>
         </div>
       )}
 
-      {/* BLOG LIST */}
+      {/* BLOG */}
       {page === "blog" && (
         <div>
           {posts.map((p, i) => (
-            <div key={i} style={{ marginBottom: "14px" }}>
-              <a
-                style={{ color: "blue", cursor: "pointer" }}
-                onClick={() => openPost(i)}
-              >
-                {p.title}
-              </a>
-              <div style={{ fontSize: "11px" }}>{p.date}</div>
+            <div key={i} className="blog-item">
+              <a onClick={() => openPost(i)}>{p.title}</a>
+              <div className="note">{p.date}</div>
             </div>
           ))}
         </div>
       )}
 
-      {/* BLOG POST */}
+      {/* POST */}
       {page === "post" && activePost && (
         <div>
-          <a className="back-link" onClick={() => setPage("blog")}>← back</a>
+          <a className="back" onClick={() => setPage("blog")}>← back</a>
 
-          <div style={{ marginTop: "10px", fontSize: "11px" }}>
-            {activePost.date}
-          </div>
-
-          <div style={{ marginBottom: "10px" }}>
-            {activePost.title}
-          </div>
+          <div className="note">{activePost.date}</div>
+          <div className="post-title">{activePost.title}</div>
 
           {activePost.content.map((block, i) =>
             block.type === "text" ? (
-              <p key={i} style={{ marginBottom: "12px" }}>
-                {block.value}
-              </p>
+              <p key={i}>{block.value}</p>
             ) : (
               <div key={i}>
-                <img src={block.value} alt="post" />
-                <div className="post-caption">{block.caption}</div>
+                <img src={block.value} alt="post" className="post-image" />
+                <div className="caption">{block.caption}</div>
               </div>
             )
           )}
@@ -195,13 +163,7 @@ export default function App() {
       )}
 
       {/* Footer */}
-      <div style={{
-        padding: "10px",
-        borderTop: "1px dashed black",
-        fontSize: "11px",
-        textAlign: "center",
-        marginTop: "20px"
-      }}>
+      <div className="footer">
         © {new Date().getFullYear()} — filed by G. Baltz
       </div>
 
