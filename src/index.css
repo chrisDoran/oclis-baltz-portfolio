@@ -13,6 +13,7 @@ a {
 }
 a:hover {
   color: red;
+  cursor: pointer;
 }
 
 /* Header */
@@ -21,6 +22,7 @@ a:hover {
   align-items: center;
   padding: 24px;
   border-bottom: 1px dashed black;
+  justify-content: flex-start; /* left aligned */
 }
 
 .header .logo {
@@ -35,6 +37,7 @@ a:hover {
   padding: 10px 24px;
   border-bottom: 1px dashed black;
   font-size: 12px;
+  margin-bottom: 24px; /* extra space before content */
 }
 
 .nav a {
@@ -42,7 +45,7 @@ a:hover {
   cursor: pointer;
 }
 
-/* Main content */
+/* Main content container */
 .container {
   max-width: 1000px;
   margin: 0 auto;
@@ -54,21 +57,23 @@ a:hover {
 /* Images */
 img {
   max-width: 100%;
-  max-height: 600px; /* adjust as needed */
+  max-height: 600px;
   display: block;
   margin: 0 auto;
+  object-fit: contain;
 }
 
 /* Project page dots */
 .dots {
   display: flex;
-  gap: 6px;
+  gap: 12px; /* space between dots */
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .dot {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #cccccc;
   cursor: pointer;
@@ -77,7 +82,22 @@ img {
   background: #888888;
 }
 
-/* Make site responsive */
+/* Captions */
+.project-caption, .post-caption {
+  text-align: right;
+  font-size: 12px;
+  color: red;
+  margin-top: 6px;
+}
+
+/* Back link */
+.back-link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .container {
     padding: 12px;
