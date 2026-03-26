@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import logo from "./images/Logo.png";
+import logo from "/Logo.png";
 
 function App() {
   const [page, setPage] = useState("main");
