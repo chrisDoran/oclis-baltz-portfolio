@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 
+// Import JSON directly from src folder
+import projectsData from "./projects.json";
+import postsData from "./posts.json";
+
 export default function App() {
   const [page, setPage] = useState("work");
   const [projects, setProjects] = useState([]);
@@ -9,17 +13,10 @@ export default function App() {
   const [imageIndex, setImageIndex] = useState(0);
   const [mainImage, setMainImage] = useState({ src: "", caption: "", postIndex: 0 });
 
-  // Fetch JSON files from public folder
+  // Load JSON at startup
   useEffect(() => {
-    fetch("/projects.json")
-      .then((res) => res.json())
-      .then((data) => setProjects(data))
-      .catch((err) => console.error("Error loading projects.json", err));
-
-    fetch("/posts.json")
-      .then((res) => res.json())
-      .then((data) => setPosts(data))
-      .catch((err) => console.error("Error loading posts.json", err));
+    setProjects(projectsData);
+    setPosts(postsData);
   }, []);
 
   // Set a random main page image from posts
