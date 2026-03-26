@@ -4,12 +4,12 @@ body {
   background: white;
 }
 
-/* HEADER (full width, fixed left alignment) */
+/* HEADER */
 .header {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  padding: 24px;
+  padding: 24px 24px 12px 24px; /* FIX alignment */
   border-bottom: 1px dashed black;
 }
 
@@ -24,7 +24,7 @@ body {
   text-align: left;
 }
 
-/* PAGE CONTENT (centered) */
+/* PAGE */
 .page {
   max-width: 960px;
   margin: 0 auto;
@@ -76,6 +76,11 @@ img {
   margin: 0 auto;
 }
 
+/* MAIN IMAGE */
+.main-image {
+  margin-bottom: 24px;
+}
+
 /* PROJECT */
 .project-title {
   margin: 10px 0;
@@ -85,18 +90,18 @@ img {
   cursor: pointer;
 }
 
-/* FADE EFFECT */
+/* FADE */
 .fade-in {
   opacity: 1;
-  transition: opacity 0.25s ease-in;
+  transition: opacity 0.25s ease-in-out;
 }
 
 .fade-out {
   opacity: 0;
-  transition: opacity 0.1s ease-out;
+  transition: opacity 0.15s ease-in-out;
 }
 
-/* META ROW */
+/* META */
 .image-meta {
   display: flex;
   justify-content: space-between;

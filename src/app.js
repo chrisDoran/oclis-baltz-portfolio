@@ -15,6 +15,13 @@ export default function App() {
     fetch("/posts.json").then(res => res.json()).then(setPosts);
   }, []);
 
+  // Restore main image (first blog image)
+  const getMainImage = () => {
+    if (!posts.length) return null;
+    const imgBlock = posts[0].content.find(b => b.type === "image");
+    return imgBlock || null;
+  };
+
   const openProject = (proj) => {
     setActiveProject(proj);
     setImageIndex(0);
@@ -26,20 +33,27 @@ export default function App() {
     setPage("post");
   };
 
+  // FIXED FADE LOGIC
   const nextImage = () => {
     setFade(false);
     setTimeout(() => {
       setImageIndex((prev) => (prev + 1) % activeProject.images.length);
-      setFade(true);
-    }, 120);
+    }, 150);
   };
+
+  useEffect(() => {
+    if (page === "project") {
+      setFade(true);
+    }
+  }, [imageIndex]);
+
+  const mainImage = getMainImage();
 
   return (
     <>
-      {/* FULL-WIDTH HEADER */}
+      {/* HEADER */}
       <div className="header">
         <img src="/images/logo.png" alt="logo" className="logo" />
-
         <div className="header-text">
           <div>OCLIS BALTZ ARCHIVE</div>
           <div>documents collected by G. Baltz</div>
@@ -47,9 +61,10 @@ export default function App() {
         </div>
       </div>
 
-      {/* CENTERED CONTENT */}
+      {/* CONTENT */}
       <div className="page">
 
+        {/* NAV */}
         <div className="nav">
           <span onClick={() => setPage("work")}>work</span>
           <span onClick={() => setPage("blog")}>blog</span>
@@ -61,6 +76,13 @@ export default function App() {
           {/* WORK */}
           {page === "work" && (
             <>
+              {mainImage && (
+                <div className="main-image" onClick={() => openPost(0)}>
+                  <img src={mainImage.value} alt="" />
+                  <div className="caption">{mainImage.caption}</div>
+                </div>
+              )}
+
               {projects.map((p, i) => (
                 <div key={i} className="project-item">
                   <span className="link" onClick={() => openProject(p)}>
@@ -129,7 +151,7 @@ export default function App() {
                   <p key={i}>{block.value}</p>
                 ) : (
                   <div key={i}>
-                    <img src={block.value} alt="" className="post-image" />
+                    <img src={block.value} alt="" />
                     <div className="caption">{block.caption}</div>
                   </div>
                 )
