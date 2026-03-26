@@ -10,6 +10,7 @@ export default function App() {
   const [imageIndex, setImageIndex] = useState(0);
   const [mainImage, setMainImage] = useState({ src: "", caption: "", postIndex: 0 });
 
+  // Fetch JSON files from public folder
   useEffect(() => {
     fetch("/projects.json")
       .then((res) => res.json())
@@ -22,6 +23,7 @@ export default function App() {
       .catch((err) => console.error("Error loading posts.json", err));
   }, []);
 
+  // Set a random main page image from posts
   useEffect(() => {
     if (!posts.length) return;
     let imagesWithPosts = [];
@@ -49,117 +51,122 @@ export default function App() {
   };
 
   const nextImage = () => {
+    if (!activeProject) return;
     setImageIndex((prev) => (prev + 1) % activeProject.images.length);
   };
 
   return (
-    <div className="site-container">
-      {/* Header */}
-      <div style={{ padding: "24px", borderBottom: "1px dashed black" }}>
-        <div style={{ fontSize: "13px", letterSpacing: "2px" }}>OCLIS BALTZ ARCHIVE</div>
-        <div style={{ fontSize: "11px" }}>documents collected by G. Baltz</div>
-        <div style={{ fontSize: "12px", marginTop: "10px" }}>some records may be incomplete or misplaced</div>
-      </div>
-
-      {/* Nav */}
-      <div style={{ padding: "10px 24px", borderBottom: "1px dashed black", fontSize: "12px" }}>
-        <a href="#" onClick={() => setPage("work")}>work</a>
-        <a href="#" onClick={() => setPage("blog")}>blog</a>
-        <a href="#" onClick={() => setPage("about")}>about</a>
-      </div>
-
-      {/* WORK */}
-      {page === "work" && (
-        <div style={{ padding: "24px" }}>
-          {mainImage.src && (
-            <div className="home-main-image" onClick={() => openPost(mainImage.postIndex)}>
-              <img src={mainImage.src} alt={mainImage.caption} />
-              <div className="caption">{mainImage.caption}</div>
-            </div>
-          )}
-
-          {projects.map((p, i) => (
-            <div key={i} style={{ marginBottom: "20px" }}>
-              <div onClick={() => openProject(p)} style={{ cursor: "pointer" }}>{p.title}</div>
-              <div style={{ fontSize: "11px" }}>{p.note}</div>
-            </div>
-          ))}
+    <div className="app-container">
+      <div className="site-container">
+        {/* Header */}
+        <div className="header">
+          <img src="/logo-placeholder.png" alt="Logo" className="logo" />
+          <div>
+            <div className="header-title">OCLIS BALTZ ARCHIVE</div>
+            <div className="header-subtitle">documents collected by G. Baltz</div>
+            <div className="header-note">some records may be incomplete or misplaced</div>
+          </div>
         </div>
-      )}
 
-      {/* PROJECT PAGE */}
-      {page === "project" && activeProject && (
-        <div style={{ padding: "24px" }}>
-          <a href="#" onClick={() => setPage("work")}>← back</a>
-          <div style={{ marginTop: "10px", marginBottom: "10px" }}>{activeProject.title}</div>
+        {/* Nav */}
+        <div className="nav">
+          <button onClick={() => setPage("work")}>work</button>
+          <button onClick={() => setPage("blog")}>blog</button>
+          <button onClick={() => setPage("about")}>about</button>
+        </div>
 
-          <div className="project-main-image">
-            <img
-              src={activeProject.images[imageIndex].src}
-              onClick={nextImage}
-              alt={activeProject.images[imageIndex].caption}
-            />
-            <div style={{ textAlign: "right", fontSize: "12px", color: "red", marginTop: "6px" }}>
-              {activeProject.images[imageIndex].caption}
+        {/* WORK / Main Page */}
+        {page === "work" && (
+          <div className="page-content">
+            {mainImage.src && (
+              <div className="main-image-container" onClick={() => openPost(mainImage.postIndex)}>
+                <img src={mainImage.src} alt={mainImage.caption} className="main-image" />
+                {mainImage.caption && <div className="image-caption">{mainImage.caption}</div>}
+              </div>
+            )}
+
+            <div className="projects-list">
+              {projects.map((p, i) => (
+                <div key={i} className="project-entry" onClick={() => openProject(p)}>
+                  <div className="project-title">{p.title}</div>
+                  <div className="project-note">{p.note}</div>
+                </div>
+              ))}
             </div>
           </div>
+        )}
 
-          <div className="project-thumbnails">
-            {activeProject.images.map((img, i) => (
+        {/* PROJECT PAGE */}
+        {page === "project" && activeProject && (
+          <div className="page-content">
+            <button className="back-button" onClick={() => setPage("work")}>← back</button>
+            <div className="project-main-title">{activeProject.title}</div>
+
+            <div className="project-main-image-container" onClick={nextImage}>
               <img
-                key={i}
-                src={img.src}
-                onClick={() => setImageIndex(i)}
-                alt={img.caption}
+                src={activeProject.images[imageIndex].src}
+                alt={activeProject.images[imageIndex].caption}
+                className="project-main-image"
               />
+              <div className="image-caption">{activeProject.images[imageIndex].caption}</div>
+            </div>
+
+            <div className="project-thumbnails">
+              {activeProject.images.map((img, i) => (
+                <img
+                  key={i}
+                  src={img.src}
+                  alt={img.caption}
+                  className={`thumbnail ${i === imageIndex ? "active-thumbnail" : ""}`}
+                  onClick={() => setImageIndex(i)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* BLOG */}
+        {page === "blog" && (
+          <div className="page-content">
+            {posts.map((p, i) => (
+              <div key={i} className="blog-entry" onClick={() => openPost(i)}>
+                <div className="blog-date">{p.date}</div>
+                <div className="blog-title">{p.title}</div>
+              </div>
             ))}
           </div>
-        </div>
-      )}
+        )}
 
-      {/* BLOG */}
-      {page === "blog" && (
-        <div style={{ padding: "24px" }}>
-          {posts.map((p, i) => (
-            <div key={i} style={{ marginBottom: "14px" }} onClick={() => openPost(i)}>
-              <div style={{ fontSize: "11px" }}>{p.date}</div>
-              <div>{p.title}</div>
-            </div>
-          ))}
-        </div>
-      )}
+        {/* POST PAGE */}
+        {page === "post" && activePost && (
+          <div className="page-content">
+            <button className="back-button" onClick={() => setPage("blog")}>← back</button>
+            <div className="blog-date">{activePost.date}</div>
+            <div className="blog-title">{activePost.title}</div>
 
-      {/* POST */}
-      {page === "post" && activePost && (
-        <div style={{ padding: "24px" }}>
-          <a href="#" onClick={() => setPage("blog")}>← back</a>
-          <div style={{ marginTop: "10px", fontSize: "11px" }}>{activePost.date}</div>
-          <div style={{ marginBottom: "10px" }}>{activePost.title}</div>
-          {activePost.content.map((block, i) =>
-            block.type === "text" ? (
-              <p key={i} style={{ marginBottom: "12px" }}>{block.value}</p>
-            ) : (
-              <div key={i}>
-                <img src={block.value} alt={block.caption} />
-                <div style={{ fontSize: "12px", color: "red", textAlign: "right", marginBottom: "12px" }}>
-                  {block.caption}
+            {activePost.content.map((block, i) =>
+              block.type === "text" ? (
+                <p key={i} className="blog-text">{block.value}</p>
+              ) : (
+                <div key={i} className="post-image-container">
+                  <img src={block.value} alt={block.caption} className="post-image" />
+                  {block.caption && <div className="image-caption">{block.caption}</div>}
                 </div>
-              </div>
-            )
-          )}
-        </div>
-      )}
+              )
+            )}
+          </div>
+        )}
 
-      {/* ABOUT */}
-      {page === "about" && (
-        <div style={{ padding: "24px" }}>
-          <p>Grigory Baltz is believed to have compiled these materials.</p>
-        </div>
-      )}
+        {/* ABOUT */}
+        {page === "about" && (
+          <div className="page-content">
+            <p>Grigory Baltz is believed to have compiled these materials.</p>
+          </div>
+        )}
 
-      {/* Footer */}
-      <div style={{ padding: "10px", borderTop: "1px dashed black", fontSize: "11px", textAlign: "center" }}>
-        © {new Date().getFullYear()} — filed by G. Baltz
+        <div className="footer">
+          © {new Date().getFullYear()} — filed by G. Baltz
+        </div>
       </div>
     </div>
   );
