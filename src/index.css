@@ -1,40 +1,18 @@
-/* Reset some basic styles */
-body, html, #root {
+/* Reset & Base */
+body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
   font-family: "Courier New", monospace;
-  background: #ffffff; /* full white background */
-  color: black;
+  background: #ffffff;
+  color: #000000;
 }
 
-/* Links */
 a {
   color: blue;
   text-decoration: none;
 }
 a:hover {
   color: red;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-/* App container */
-.app-container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 20px;
-}
-
-/* Main wrapper */
-.main-wrapper {
-  width: 100%;
-  max-width: 1000px;
-  background: #ffffff;
-  border: 1px solid black;
-  padding: 0;
 }
 
 /* Header */
@@ -46,23 +24,13 @@ a:hover {
 }
 
 .header .logo {
-  width: 40px;
-  height: 40px;
-  background: #eee; /* placeholder */
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
   margin-right: 12px;
 }
 
-.header-text {
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
-}
-
-.header-text div {
-  margin: 2px 0;
-}
-
-/* Nav */
+/* Navigation */
 .nav {
   padding: 10px 24px;
   border-bottom: 1px dashed black;
@@ -70,117 +38,55 @@ a:hover {
 }
 
 .nav a {
-  margin-right: 12px;
+  margin-right: 10px;
   cursor: pointer;
 }
 
-/* Page content */
-.page-content {
+/* Main content */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #ffffff;
   padding: 24px;
+  box-sizing: border-box;
 }
 
-/* Main page image */
-.main-image {
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-
-.main-image img {
-  width: 100%;
-  max-height: 600px;
-  object-fit: contain;
-  border: none;
+/* Images */
+img {
+  max-width: 100%;
+  max-height: 600px; /* adjust as needed */
   display: block;
+  margin: 0 auto;
 }
 
-.main-image-caption {
-  font-size: 12px;
-  color: red;
-  text-align: right;
-  margin-top: 6px;
-}
-
-/* Project titles */
-.project-list div {
-  margin-bottom: 20px;
-}
-
-.project-list .title {
-  cursor: pointer;
-  font-weight: bold;
-  text-decoration: underline;
-}
-
-.project-list .note {
-  font-size: 11px;
-}
-
-/* Project page images */
-.project-main-image img {
-  width: 100%;
-  max-height: 600px;
-  object-fit: contain;
-  cursor: pointer;
-}
-
-/* Thumbnails */
-.project-thumbnails {
+/* Project page dots */
+.dots {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
+  justify-content: center;
   margin-top: 10px;
 }
-
-.thumbnail-container {
-  width: 60px;
-  height: 60px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #ccc;
-}
-
-.thumbnail-container img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
-  transition: transform 0.2s;
-}
-
-.thumbnail-container:hover img {
-  transform: scale(1.1);
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #cccccc;
   cursor: pointer;
 }
-
-/* Blog posts */
-.blog-post img {
-  width: 100%;
-  max-height: 500px;
-  object-fit: contain;
-  margin-bottom: 6px;
+.dot.active {
+  background: #888888;
 }
 
-/* About page */
-.about {
-  font-size: 12px;
-}
-
-/* Footer */
-.footer {
-  padding: 10px;
-  border-top: 1px dashed black;
-  font-size: 11px;
-  text-align: center;
-}
-
-/* Responsive adjustments */
+/* Make site responsive */
 @media (max-width: 768px) {
-  .main-wrapper {
-    width: 95%;
+  .container {
+    padding: 12px;
   }
-  .thumbnail-container {
-    width: 50px;
-    height: 50px;
+  .header .logo {
+    width: 40px;
+    height: 40px;
+  }
+  img {
+    max-height: 400px;
   }
 }
