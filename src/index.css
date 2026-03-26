@@ -1,0 +1,97 @@
+/* Reset some basics */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: "Courier New", monospace;
+  background: #eae7df;
+}
+
+/* Centralize site */
+.site-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #fdfbf7;
+  border: 1px solid black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header and footer text */
+.site-container div {
+  box-sizing: border-box;
+}
+
+/* Main image on homepage */
+.home-main-image img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: opacity 0.4s;
+}
+
+.home-main-image .caption {
+  font-size: 12px;
+  color: red;
+  text-align: right;
+  margin-top: 6px;
+}
+
+/* Project main image */
+.project-main-image img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: opacity 0.4s;
+}
+
+/* Project thumbnails */
+.project-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.project-thumbnails img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+/* Blog and post page images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Nav links */
+a {
+  color: blue;
+  text-decoration: none;
+  margin-right: 8px;
+}
+a:hover {
+  color: red;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .site-container {
+    width: 95%;
+    border: none;
+  }
+  .project-thumbnails img {
+    width: 45px;
+    height: 45px;
+  }
+}
