@@ -1,191 +1,185 @@
-/* General App Styles */
+/* Reset some basic styles */
 body, html, #root {
   margin: 0;
   padding: 0;
-  font-family: Courier New, monospace;
+  height: 100%;
+  font-family: "Courier New", monospace;
+  background: #ffffff; /* full white background */
+  color: black;
 }
 
+/* Links */
+a {
+  color: blue;
+  text-decoration: none;
+}
+a:hover {
+  color: red;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* App container */
 .app-container {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   padding: 20px;
-  background: #eae7df;
 }
 
-.site-container {
-  max-width: 1000px;
+/* Main wrapper */
+.main-wrapper {
   width: 100%;
-  background: #fdfbf7;
-  padding: 20px;
-  box-sizing: border-box;
+  max-width: 1000px;
+  background: #ffffff;
+  border: 1px solid black;
+  padding: 0;
 }
 
 /* Header */
 .header {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  padding: 24px;
+  border-bottom: 1px dashed black;
 }
 
-.logo {
+.header .logo {
   width: 40px;
   height: 40px;
+  background: #eee; /* placeholder */
   margin-right: 12px;
 }
 
-.header-title {
-  font-size: 13px;
-  letter-spacing: 2px;
-}
-
-.header-subtitle {
-  font-size: 11px;
-}
-
-.header-note {
+.header-text {
+  display: flex;
+  flex-direction: column;
   font-size: 12px;
-  margin-top: 6px;
+}
+
+.header-text div {
+  margin: 2px 0;
 }
 
 /* Nav */
 .nav {
-  display: flex;
-  gap: 12px;
+  padding: 10px 24px;
+  border-bottom: 1px dashed black;
   font-size: 12px;
-  margin-bottom: 16px;
 }
 
-.nav button {
-  background: none;
-  border: none;
+.nav a {
+  margin-right: 12px;
   cursor: pointer;
-  font-size: 12px;
-  padding: 4px 8px;
 }
 
-.nav button:hover {
-  text-decoration: underline;
-  color: red;
-}
-
-/* Pages */
+/* Page content */
 .page-content {
-  width: 100%;
+  padding: 24px;
 }
 
-/* Main image on work page */
-.main-image-container {
+/* Main page image */
+.main-image {
   cursor: pointer;
   margin-bottom: 20px;
 }
 
-.main-image {
+.main-image img {
   width: 100%;
   max-height: 600px;
   object-fit: contain;
+  border: none;
+  display: block;
 }
 
-.image-caption {
+.main-image-caption {
   font-size: 12px;
   color: red;
   text-align: right;
   margin-top: 6px;
 }
 
-/* Projects list */
-.projects-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* Project titles */
+.project-list div {
+  margin-bottom: 20px;
 }
 
-.project-entry {
+.project-list .title {
   cursor: pointer;
-}
-
-.project-title {
   font-weight: bold;
   text-decoration: underline;
 }
 
-.project-note {
+.project-list .note {
   font-size: 11px;
 }
 
-/* Project page */
-.project-main-image-container {
-  cursor: pointer;
-}
-
-.project-main-image {
+/* Project page images */
+.project-main-image img {
   width: 100%;
   max-height: 600px;
   object-fit: contain;
-}
-
-.project-thumbnails {
-  display: flex;
-  gap: 6px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-.thumbnail {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
   cursor: pointer;
 }
 
-.active-thumbnail {
-  outline: 2px solid red;
+/* Thumbnails */
+.project-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
 }
 
-/* Blog/Post */
-.blog-entry, .post-image-container {
-  margin-bottom: 14px;
+.thumbnail-container {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
 }
 
-.blog-text {
-  margin-bottom: 12px;
+.thumbnail-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s;
 }
 
-.post-image {
+.thumbnail-container:hover img {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+/* Blog posts */
+.blog-post img {
   width: 100%;
   max-height: 500px;
   object-fit: contain;
   margin-bottom: 6px;
 }
 
-/* Footer */
-.footer {
-  font-size: 11px;
-  text-align: center;
-  margin-top: 20px;
-  padding-top: 10px;
-  border-top: 1px dashed black;
-}
-
-/* Back button */
-.back-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-bottom: 10px;
+/* About page */
+.about {
   font-size: 12px;
 }
 
-/* Responsive */
+/* Footer */
+.footer {
+  padding: 10px;
+  border-top: 1px dashed black;
+  font-size: 11px;
+  text-align: center;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .site-container {
-    padding: 12px;
+  .main-wrapper {
+    width: 95%;
   }
-
-  .main-image, .project-main-image, .post-image {
-    max-height: 400px;
-  }
-
-  .thumbnail {
+  .thumbnail-container {
     width: 50px;
     height: 50px;
   }
