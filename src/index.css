@@ -13,12 +13,19 @@ body, html {
   padding: 24px;
 }
 
-/* Header */
 .header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;   /* important */
+  justify-content: flex-start;
+  text-align: left;          /* force left */
   border-bottom: 1px dashed black;
   padding-bottom: 12px;
+}
+
+.header-text {
+  display: block;            /* remove flex column weirdness */
+  text-align: left;
+  font-size: 12px;
 }
 
 .logo {
@@ -28,11 +35,6 @@ body, html {
   margin-right: 12px;
 }
 
-.header-text {
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
-}
 
 /* Nav */
 .nav {
