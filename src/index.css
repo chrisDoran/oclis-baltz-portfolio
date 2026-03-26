@@ -1,49 +1,41 @@
-/* BASE */
 body {
   margin: 0;
   font-family: "Courier New", monospace;
-  background: #ffffff;
-  color: #000;
+  background: white;
 }
 
-/* PAGE STRUCTURE */
-.page {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-/* HEADER — FIXED */
+/* HEADER (full width, fixed left alignment) */
 .header {
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  padding: 24px;
   border-bottom: 1px dashed black;
-  padding-bottom: 12px;
-
-  text-align: left !important;   /* force left */
 }
 
-.header-text {
-  text-align: left !important;
-  font-size: 12px;
-  line-height: 1.4;
-}
-
-/* LOGO */
 .logo {
   width: 48px;
   height: 48px;
   object-fit: contain;
 }
 
+.header-text {
+  font-size: 12px;
+  text-align: left;
+}
+
+/* PAGE CONTENT (centered) */
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
 /* NAV */
 .nav {
   border-bottom: 1px dashed black;
-  margin-top: 10px;
-  padding: 10px 0 16px 0;
+  padding-bottom: 12px;
   margin-bottom: 24px;
-  font-size: 12px;
 }
 
 .nav span {
@@ -56,11 +48,6 @@ body {
   color: red;
 }
 
-/* CONTENT */
-.content {
-  min-height: 300px;
-}
-
 /* LINKS */
 .link {
   color: blue;
@@ -71,15 +58,10 @@ body {
   color: red;
 }
 
-/* BACK */
-.back {
-  display: inline-block;
-  margin-bottom: 12px;
-}
-
-/* PROJECT LIST */
-.project-item {
-  margin-bottom: 18px;
+/* ITEMS */
+.project-item,
+.blog-item {
+  margin-bottom: 16px;
 }
 
 .note {
@@ -94,17 +76,27 @@ img {
   margin: 0 auto;
 }
 
-/* MAIN IMAGE */
-.main-image {
-  margin-bottom: 24px;
-}
-
 /* PROJECT */
 .project-title {
   margin: 10px 0;
 }
 
-/* CAPTION + COUNTER ROW */
+.project-image {
+  cursor: pointer;
+}
+
+/* FADE EFFECT */
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.25s ease-in;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.1s ease-out;
+}
+
+/* META ROW */
 .image-meta {
   display: flex;
   justify-content: space-between;
@@ -112,23 +104,14 @@ img {
 }
 
 .caption {
-  text-align: right;
-  font-size: 12px;
   color: red;
+  font-size: 12px;
+  text-align: right;
 }
 
 .image-counter {
-  font-size: 12px;
   color: red;
-}
-
-/* BLOG */
-.blog-item {
-  margin-bottom: 14px;
-}
-
-.post-title {
-  margin-bottom: 10px;
+  font-size: 12px;
 }
 
 /* FOOTER */
@@ -138,15 +121,4 @@ img {
   padding-top: 10px;
   font-size: 11px;
   text-align: center;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .page {
-    padding: 16px;
-  }
-
-  img {
-    max-height: 400px;
-  }
 }
