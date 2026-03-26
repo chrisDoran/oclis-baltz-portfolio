@@ -82,6 +82,7 @@ export default function App() {
       {/* WORK */}
       {page === "work" && (
         <div>
+
           {mainImage.src && (
             <div className="main-image" onClick={() => openPost(mainImage.postIndex)}>
               <img src={mainImage.src} alt="main" />
@@ -95,12 +96,14 @@ export default function App() {
               <div className="note">{p.note}</div>
             </div>
           ))}
+
         </div>
       )}
 
       {/* PROJECT PAGE */}
       {page === "project" && activeProject && (
         <div>
+
           <a className="back" onClick={() => setPage("work")}>← back</a>
 
           <div className="project-title">{activeProject.title}</div>
@@ -112,13 +115,17 @@ export default function App() {
             className="project-image"
           />
 
-          <div className="caption">
-            {activeProject.images[imageIndex].caption}
+          {/* Caption + Counter SAME ROW */}
+          <div className="image-meta">
+            <div className="image-counter">
+              #{imageIndex + 1}/{activeProject.images.length}
+            </div>
+
+            <div className="caption">
+              {activeProject.images[imageIndex].caption}
+            </div>
           </div>
 
-          <div className="image-counter">
-            #{imageIndex + 1}/{activeProject.images.length}
-          </div>
         </div>
       )}
 
@@ -137,6 +144,7 @@ export default function App() {
       {/* POST */}
       {page === "post" && activePost && (
         <div>
+
           <a className="back" onClick={() => setPage("blog")}>← back</a>
 
           <div className="note">{activePost.date}</div>
@@ -152,6 +160,7 @@ export default function App() {
               </div>
             )
           )}
+
         </div>
       )}
 
