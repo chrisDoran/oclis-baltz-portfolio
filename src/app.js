@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+
 // Import JSON directly from src folder
 import projectsData from "./projects.json";
 import postsData from "./posts.json";
