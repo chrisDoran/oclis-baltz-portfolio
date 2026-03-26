@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
+import "./index.css";
 
-import logo from "/Logo.png";
-
-function App() {
-  const [page, setPage] = useState("main");
+export default function App() {
+  const [page, setPage] = useState("work");
   const [projects, setProjects] = useState([]);
   const [posts, setPosts] = useState([]);
   const [activeProject, setActiveProject] = useState(null);
   const [activePost, setActivePost] = useState(null);
   const [imageIndex, setImageIndex] = useState(0);
+  const [mainImage, setMainImage] = useState({ src: "", caption: "", postIndex: 0 });
 
+  // Load JSON from public folder
   useEffect(() => {
     fetch("/projects.json")
       .then((res) => res.json())
@@ -22,15 +23,50 @@ function App() {
       .catch((err) => console.error("Error loading posts.json", err));
   }, []);
 
+  // Random homepage image from blog
+  useEffect(() => {
+    if (!posts.length) return;
+
+    let images = [];
+    posts.forEach((post, index) => {
+      post.content.forEach((block) => {
+        if (block.type === "image") {
+          images.push({
+            src: block.value,
+            caption: block.caption,
+            postIndex: index
+          });
+        }
+      });
+    });
+
+    if (images.length) {
+      const random = images[Math.floor(Math.random() * images.length)];
+      setMainImage(random);
+    }
+  }, [posts]);
+
+  const openProject = (proj) => {
+    setActiveProject(proj);
+    setImageIndex(0);
+    setPage("project");
+  };
+
+  const openPost = (index) => {
+    setActivePost(posts[index]);
+    setPage("post");
+  };
+
   const nextImage = () => {
-    if (!activeProject) return;
     setImageIndex((prev) => (prev + 1) % activeProject.images.length);
   };
 
   return (
     <div className="container">
+
+      {/* Header */}
       <div className="header">
-        <img src={logo} alt="Logo" className="logo" />
+        <img src="/images/logo.png" alt="Logo" className="logo" />
         <div>
           <div>OCLIS BALTZ ARCHIVE</div>
           <div style={{ fontSize: "12px" }}>documents collected by G. Baltz</div>
@@ -38,51 +74,62 @@ function App() {
         </div>
       </div>
 
+      {/* Nav */}
       <div className="nav">
-        <a onClick={() => setPage("main")}>Home</a>
-        <a onClick={() => setPage("work")}>Work / Projects</a>
-        <a onClick={() => setPage("blog")}>Blog</a>
+        <a onClick={() => setPage("work")}>work</a>
+        <a onClick={() => setPage("blog")}>blog</a>
+        <a onClick={() => setPage("about")}>about</a>
       </div>
 
-      {/* Main Page */}
-      {page === "main" && <div>Welcome to the archive.</div>}
-
-      {/* Projects List */}
+      {/* WORK (Homepage) */}
       {page === "work" && (
         <div>
+
+          {mainImage.src && (
+            <div
+              style={{ cursor: "pointer", marginBottom: "20px" }}
+              onClick={() => openPost(mainImage.postIndex)}
+            >
+              <img src={mainImage.src} alt="main" />
+              <div className="project-caption">{mainImage.caption}</div>
+            </div>
+          )}
+
           {projects.map((p, i) => (
-            <div key={i}>
+            <div key={i} style={{ marginBottom: "20px" }}>
               <a
-                style={{ color: "blue" }}
-                onClick={() => {
-                  setActiveProject(p);
-                  setImageIndex(0);
-                  setPage("project");
-                }}
+                style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }}
+                onClick={() => openProject(p)}
               >
                 {p.title}
               </a>
+              <div style={{ fontSize: "11px" }}>{p.note}</div>
             </div>
           ))}
         </div>
       )}
 
-      {/* Single Project Page */}
+      {/* PROJECT PAGE */}
       {page === "project" && activeProject && (
         <div>
-          <a className="back-link" onClick={() => setPage("work")}>
-            ← back
-          </a>
-          <div style={{ marginTop: "10px", marginBottom: "10px" }}>{activeProject.title}</div>
-          <div>
-            <img
-              src={activeProject.images[imageIndex].src}
-              alt={activeProject.images[imageIndex].caption}
-              onClick={nextImage}
-            />
-            <div className="project-caption">{activeProject.images[imageIndex].caption}</div>
+          <a className="back-link" onClick={() => setPage("work")}>← back</a>
+
+          <div style={{ marginTop: "10px", marginBottom: "10px" }}>
+            {activeProject.title}
           </div>
 
+          <img
+            src={activeProject.images[imageIndex].src}
+            alt="project"
+            onClick={nextImage}
+            style={{ cursor: "pointer" }}
+          />
+
+          <div className="project-caption">
+            {activeProject.images[imageIndex].caption}
+          </div>
+
+          {/* Dots navigation */}
           <div className="dots">
             {activeProject.images.map((_, i) => (
               <div
@@ -95,33 +142,36 @@ function App() {
         </div>
       )}
 
-      {/* Blog List */}
+      {/* BLOG LIST */}
       {page === "blog" && (
         <div>
-          {posts.map((post, i) => (
-            <div key={i}>
+          {posts.map((p, i) => (
+            <div key={i} style={{ marginBottom: "14px" }}>
               <a
-                style={{ color: "blue" }}
-                onClick={() => {
-                  setActivePost(post);
-                  setPage("post");
-                }}
+                style={{ color: "blue", cursor: "pointer" }}
+                onClick={() => openPost(i)}
               >
-                {post.title}
+                {p.title}
               </a>
+              <div style={{ fontSize: "11px" }}>{p.date}</div>
             </div>
           ))}
         </div>
       )}
 
-      {/* Single Blog Post */}
+      {/* BLOG POST */}
       {page === "post" && activePost && (
         <div>
-          <a className="back-link" onClick={() => setPage("blog")}>
-            ← back
-          </a>
-          <div style={{ marginTop: "10px", fontSize: "11px" }}>{activePost.date}</div>
-          <div style={{ marginBottom: "10px" }}>{activePost.title}</div>
+          <a className="back-link" onClick={() => setPage("blog")}>← back</a>
+
+          <div style={{ marginTop: "10px", fontSize: "11px" }}>
+            {activePost.date}
+          </div>
+
+          <div style={{ marginBottom: "10px" }}>
+            {activePost.title}
+          </div>
+
           {activePost.content.map((block, i) =>
             block.type === "text" ? (
               <p key={i} style={{ marginBottom: "12px" }}>
@@ -129,15 +179,32 @@ function App() {
               </p>
             ) : (
               <div key={i}>
-                <img src={block.value} alt={block.caption} />
+                <img src={block.value} alt="post" />
                 <div className="post-caption">{block.caption}</div>
               </div>
             )
           )}
         </div>
       )}
+
+      {/* ABOUT */}
+      {page === "about" && (
+        <div>
+          <p>Grigory Baltz is believed to have compiled these materials.</p>
+        </div>
+      )}
+
+      {/* Footer */}
+      <div style={{
+        padding: "10px",
+        borderTop: "1px dashed black",
+        fontSize: "11px",
+        textAlign: "center",
+        marginTop: "20px"
+      }}>
+        © {new Date().getFullYear()} — filed by G. Baltz
+      </div>
+
     </div>
   );
 }
-
-export default App;
