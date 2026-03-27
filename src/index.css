@@ -1,61 +1,124 @@
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: white;
-}
-
+/* General container */
 .container {
   max-width: 960px;
-  margin: 40px auto;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Typewriter / retro feel */
+body {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  background: white;
+  color: black;
+  line-height: 1.5;
+}
+
+/* Header */
+.header-wrapper {
+  margin-bottom: 20px;
 }
 
 .header {
-  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
 }
 
 .logo {
   width: 60px;
-  display: block;
-  margin-bottom: 10px;
+  flex-shrink: 0;
 }
 
-nav a {
-  margin-right: 15px;
+.header-text .title {
+  font-weight: bold;
+  font-size: 1.3em;
 }
 
+.header-text .sub {
+  font-size: 0.9em;
+  color: #333;
+}
+
+/* Divider */
 .divider {
   border-bottom: 1px dashed black;
-  margin-top: 10px;
+  margin: 10px 0;
 }
 
-a {
-  color: blue;
+.divider.dotted-top {
+  border-bottom-style: dotted;
+}
+
+.divider.dotted-bottom {
+  border-bottom-style: dashed;
+}
+
+/* Nav */
+.nav-bar {
+  display: flex;
+  gap: 15px;
+  padding: 10px 0 15px 0;
+}
+
+.nav-bar a {
   text-decoration: none;
+  color: blue;
 }
 
-a:hover {
+.nav-bar a:hover {
   color: red;
 }
 
-.note {
-  font-size: 0.9em;
-  margin-bottom: 20px;
+/* Featured main page image */
+.featured-wrapper {
+  margin-bottom: 30px;
+  display: block;
 }
 
 .featured {
   width: 100%;
   max-height: 600px;
   object-fit: contain;
+  margin-bottom: 5px;
+}
+
+/* Project list */
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* spacing between projects */
   margin-bottom: 40px;
 }
 
-/* IMAGE SYSTEM */
+.project-item {
+  padding: 10px 0;
+}
 
+/* Project / blog image captions */
+.note {
+  font-size: 0.9em;
+  color: red;  /* red captions and index */
+  margin-top: 5px;
+}
+
+/* Project page meta */
+.meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  color: red;
+  gap: 20px;
+}
+
+/* Image system */
 .image-wrapper {
   position: relative;
   width: 100%;
   max-height: 600px;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .image {
@@ -78,19 +141,24 @@ a:hover {
   opacity: 1;
 }
 
-.meta {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
+/* Back button */
 .back {
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
-img {
-  max-width: 100%;
-  max-height: 600px;
-  object-fit: contain;
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .logo {
+    margin-bottom: 10px;
+  }
+
+  .nav-bar {
+    flex-wrap: wrap;
+  }
 }

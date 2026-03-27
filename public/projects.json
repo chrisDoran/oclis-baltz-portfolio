@@ -4,18 +4,9 @@
     "title": "Industrial Forms",
     "note": "structures observed over time",
     "images": [
-      {
-        "src": "/images/p1-1.jpg",
-        "caption": "Concrete wall"
-      },
-      {
-        "src": "/images/p1-2.jpg",
-        "caption": "Steel framework"
-      },
-      {
-        "src": "/images/p1-3.jpg",
-        "caption": "Surface detail"
-      }
+      { "src": "/images/p1-1.jpg", "caption": "Concrete wall" },
+      { "src": "/images/p1-2.jpg", "caption": "Steel framework" },
+      { "src": "/images/p1-3.jpg", "caption": "Surface detail" }
     ]
   }
 ]
