@@ -1,18 +1,18 @@
 [
   {
-    "title": "On photographing empty rooms",
-    "date": "12.02.06",
-    "content": [
-      { "type": "text", "value": "the room remembers more than the people who leave it..." },
-      { "type": "image", "value": "/images/blog-room.jpg", "caption": "morning light" },
-      { "type": "text", "value": "sometimes the light arrives before anything else" }
-    ]
-  },
-  {
-    "title": "Entry without title",
-    "date": "??.??.05",
-    "content": [
-      { "type": "text", "value": "this entry may not belong to the archive" }
+    "id": "post-1",
+    "title": "Field Notes 01",
+    "date": "2026-03-01",
+    "blocks": [
+      {
+        "type": "text",
+        "content": "Initial observations from the site."
+      },
+      {
+        "type": "image",
+        "src": "/images/p1-1.jpg",
+        "caption": "Entry point"
+      }
     ]
   }
 ]

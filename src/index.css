@@ -1,129 +1,96 @@
 body {
   margin: 0;
-  font-family: "Courier New", monospace;
+  font-family: Arial, Helvetica, sans-serif;
   background: white;
 }
 
-/* HEADER */
+.container {
+  max-width: 960px;
+  margin: 40px auto;
+}
+
 .header {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 24px 24px 12px 24px; /* FIX alignment */
-  border-bottom: 1px dashed black;
+  padding: 20px;
 }
 
 .logo {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
+  width: 60px;
+  display: block;
+  margin-bottom: 10px;
 }
 
-.header-text {
-  font-size: 12px;
-  text-align: left;
+nav a {
+  margin-right: 15px;
 }
 
-/* PAGE */
-.page {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-/* NAV */
-.nav {
+.divider {
   border-bottom: 1px dashed black;
-  padding-bottom: 12px;
-  margin-bottom: 24px;
+  margin-top: 10px;
 }
 
-.nav span {
-  margin-right: 14px;
+a {
   color: blue;
-  cursor: pointer;
+  text-decoration: none;
 }
 
-.nav span:hover {
+a:hover {
   color: red;
-}
-
-/* LINKS */
-.link {
-  color: blue;
-  cursor: pointer;
-}
-
-.link:hover {
-  color: red;
-}
-
-/* ITEMS */
-.project-item,
-.blog-item {
-  margin-bottom: 16px;
 }
 
 .note {
-  font-size: 11px;
+  font-size: 0.9em;
+  margin-bottom: 20px;
 }
 
-/* IMAGES */
-img {
-  max-width: 100%;
-  max-height: 580px;
-  display: block;
-  margin: 0 auto;
+.featured {
+  width: 100%;
+  max-height: 600px;
+  object-fit: contain;
+  margin-bottom: 40px;
 }
 
-/* MAIN IMAGE */
-.main-image {
-  margin-bottom: 24px;
-}
+/* IMAGE SYSTEM */
 
-/* PROJECT */
-.project-title {
-  margin: 10px 0;
-}
-
-.project-image {
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  max-height: 600px;
   cursor: pointer;
 }
 
-/* FADE */
-.fade-in {
-  opacity: 1;
-  transition: opacity 0.25s ease-in-out;
-}
-
-.fade-out {
+.image {
+  position: absolute;
+  width: 100%;
+  max-height: 600px;
+  object-fit: contain;
+  top: 0;
+  left: 0;
   opacity: 0;
-  transition: opacity 0.15s ease-in-out;
+  transition: opacity 0.4s ease;
 }
 
-/* META */
-.image-meta {
+.image.active {
+  opacity: 1;
+  position: relative;
+}
+
+.image.fade-in {
+  opacity: 1;
+}
+
+.meta {
   display: flex;
   justify-content: space-between;
-  margin-top: 6px;
+  margin-top: 10px;
 }
 
-.caption {
-  color: red;
-  font-size: 12px;
-  text-align: right;
+.back {
+  cursor: pointer;
+  margin-bottom: 20px;
 }
 
-.image-counter {
-  color: red;
-  font-size: 12px;
-}
-
-/* FOOTER */
-.footer {
-  margin-top: 32px;
-  border-top: 1px dashed black;
-  padding-top: 10px;
-  font-size: 11px;
-  text-align: center;
+img {
+  max-width: 100%;
+  max-height: 600px;
+  object-fit: contain;
 }
